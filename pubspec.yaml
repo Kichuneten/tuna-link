@@ -1,0 +1,49 @@
+name: tunalink
+description: "A new Flutter project."
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8 # google icons
+
+  provider: ^6.1.2 # 状態管理
+  go_router: ^14.6.2 # ページのルート
+
+  path_provider: ^2.1.0 # ローカルディレクトリへのアクセス
+  file_picker: ^8.1.3 # ローカルファイルの選択
+  image_picker: ^1.1.2 # 画像をローカルから選択するためのパッケージ
+
+  # ローカルストレージ
+  flutter_secure_storage: ^9.2.2 # 暗号化ストレージ
+  shared_preferences: ^2.3.4 # 通常ストレージ
+
+  crypto: ^3.0.6 # 暗号化(SHA-512など)
+
+  intl: ^0.19.0 # international: 国際化API(数値・日付の書式の操作)
+
+  firebase_core: ^3.7.0 # Firebaseの初期化用
+  firebase_auth: ^5.3.2 # Firebase Authentication用
+
+  dio: ^5.7.0 # uploadのプログレスバーをつけたかったときに入れたパッケージ
+
+  http: ^1.2.2 # http通信
+  web_socket_channel: ^3.0.1 # web socket通信
+  audioplayers: ^6.1.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/test.mp3
+    - assets/test2.jpg

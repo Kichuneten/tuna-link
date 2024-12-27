@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "336241483230",
+    "project_id": "tunalink-auth-2",
+    "storage_bucket": "tunalink-auth-2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336241483230:android:5790ea623c6fdce09d914f",
+        "android_client_info": {
+          "package_name": "com.example.tunalink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBJ7pixsKWjKxaRRFeYyB3USyzWBPwEl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
