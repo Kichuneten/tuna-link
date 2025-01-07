@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tunalink/src/infrastructure/server/test.dart';
 import 'package:tunalink/src/presentation/providers/main_provider.dart';
 import 'package:tunalink/src/presentation/widgets/post_widget.dart';
 import 'package:tunalink/src/presentation/widgets/scaffold_components.dart';
@@ -37,22 +36,24 @@ class HomePage extends StatelessWidget {
               )
             ];
           },
-          body: Column(
+          body: const Column(
             children: [
-              const PostWidget(),
-              FutureBuilder(
-                future: testimage(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const CircularProgressIndicator();
-                  }
-                  return SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Image.memory(snapshot.data!),
-                  );
-                },
-              )
+              PostWidget(),
+
+              //?以下cloud run ->cloud storageのファイル取得のテスト。うまくいきました。　
+              // FutureBuilder(
+              //   future: testimage(),
+              //   builder: (context, snapshot) {
+              //     if (!snapshot.hasData) {
+              //       return const CircularProgressIndicator();
+              //     }
+              //     return SizedBox(
+              //       width: 100,
+              //       height: 100,
+              //       child: Image.memory(snapshot.data!),
+              //     );
+              //   },
+              // )
             ],
           )),
       bottomNavigationBar: const MyBottomNaviBar(currentIndex: 0),

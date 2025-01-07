@@ -1,6 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tunalink/src/infrastructure/fireabse/firebase_auth.dart';
 
 // import 'package:tunalink/src/infrastructure/server/server_userinfo.dart';
 
@@ -25,6 +26,15 @@ Future<String?> getEmailFromSecureStorage() async {
   return await userInfoStorage.read(key: 'email');
 }
 
+
+
+Future<String?> saveTokenToSecureStorage() async {
+  String? idToken=await getIdToken();
+  if (idToken != null) {
+    await userInfoStorage.write(key: 'token', value: idToken);
+  }
+  return idToken;
+}
 
 
 //これもとりあえずの素材置き場

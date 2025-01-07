@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tunalink/src/application/storage/userInfoStorage.dart';
+import 'package:tunalink/src/infrastructure/fireabse/firebase_auth.dart';
 import 'package:tunalink/src/presentation/theme/sizes.dart';
 
 class LoginProvider extends ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> login(BuildContext context) async {
     final messenger = ScaffoldMessenger.of(context);
-    try {
-      final userCredential = await _auth.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
 
-      if (userCredential.user?.emailVerified ?? false) {
-        await saveUIDToSecureStorage();
+    int islogin =
+        await loginFirebase(emailController.text, passwordController.text);
+    // Function<void> route(String location)=> context.go(location);
 
+    switch (islogin) {
+      case 0:
         messenger.showSnackBar(
           SnackBar(
             content: Text(
@@ -28,22 +25,26 @@ class LoginProvider extends ChangeNotifier {
             ),
           ),
         );
-        context.go('/');
-      } else {
-        await userCredential.user?.sendEmailVerification();
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.go('/');
+        });
+
+        break;
+      case 1:
         messenger.showSnackBar(
           const SnackBar(
             content: Text('メールアドレスが認証されていません\n 認証メールを再送信しました。'),
           ),
         );
-      }
-    } on FirebaseAuthException catch (error) {
-      messenger.showSnackBar(
-        const SnackBar(
-          content: Text("ログインに失敗しました\n入力内容を確かめて再度試してください"),
-        ),
-      );
-      debugPrint("Error<LoginProvider>: FirebaseAuthException: $error");
+        break;
+      case 2:
+        messenger.showSnackBar(
+          const SnackBar(
+            content: Text("ログインに失敗しました\n入力内容を確かめて再度試してください"),
+          ),
+        );
+        break;
     }
   }
 

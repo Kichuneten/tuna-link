@@ -19,10 +19,6 @@ final GoRouter goRouter = GoRouter(
         state.path == '/register' ||
         state.path == '/verify');
 
-    // debugPrint("${FirebaseAuth.instance.currentUser!.email}");
-
-    // debugPrint("${isLoggedIn}/ ${goingToLogin}");
-
     if (!isLoggedIn && !goingToLogin) {
       return '/login'; // 未ログイン時はログイン画面にリダイレクト
     }

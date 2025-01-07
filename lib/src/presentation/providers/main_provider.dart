@@ -6,13 +6,13 @@ import 'package:tunalink/src/infrastructure/server/test.dart';
 
 //全体で共有したい情報を持っておくProvider
 class MainProvider with ChangeNotifier {
-  String message="";
-  bool isInit=false;
+  String message = "";
+  bool isInit = false;
 
-  Future<void> init()async{
-    if(!isInit){
-      message=await testget();
-    isInit=true;
+  Future<void> init() async {
+    if (!isInit) {
+      message = await testget();
+      isInit = true;
     }
     notifyListeners();
   }
@@ -26,6 +26,7 @@ class MainProvider with ChangeNotifier {
   @override
   void dispose() {
     isDisposed = true;
+    isInit=false;
     super.dispose();
   }
 }
