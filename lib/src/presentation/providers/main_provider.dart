@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tunalink/src/infrastructure/server/post.dart';
 import 'package:tunalink/src/infrastructure/server/test.dart';
 
 //全体で共有したい情報を持っておくProvider
@@ -11,7 +12,8 @@ class MainProvider with ChangeNotifier {
 
   Future<void> init() async {
     if (!isInit) {
-      message = await testget();
+      // message = await testsearchpost();
+      message= await testget();
       isInit = true;
     }
     notifyListeners();

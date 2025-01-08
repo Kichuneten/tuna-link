@@ -16,7 +16,7 @@ Future<String> testget() async {
       throw Exception('ID Token is null');
     }
 
-    var url = Uri.http(httpBaseUrl, '/post');
+    var url = Uri.https(httpBaseUrl, '/user');
 
     // debugPrint("idToken: $idToken");
 
@@ -42,7 +42,7 @@ Future<String> testget() async {
 Future<Uint8List> testimage() async {
   debugPrint("hi");
   try {
-    var url = Uri.http(httpBaseUrl, '/test_img');
+    var url = Uri.https(httpBaseUrl, '/test_img');
     var response = await http.get(url);
     debugPrint("status:${response.statusCode.toString()}");
     if (response.statusCode == 200) {

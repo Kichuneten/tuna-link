@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tunalink/src/application/storage/userInfoStorage.dart';
+import 'package:tunalink/src/infrastructure/server/user.dart';
 import 'package:tunalink/src/presentation/theme/sizes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -130,7 +131,7 @@ class RegisterViewModel extends ChangeNotifier {
 
       final uid = await getUIDFromSecureStorage();
       if (uid != null) {
-        // await saveUserToDB(usernameController.text, uid);
+         await saveUserToDB(usernameController.text);
       } else {
         throw Exception("uid has null value");
       }

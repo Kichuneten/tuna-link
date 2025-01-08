@@ -8,16 +8,14 @@ import 'package:tunalink/src/presentation/pages/register_page.dart';
 import 'package:tunalink/src/presentation/pages/logined/search_page.dart';
 import 'package:tunalink/src/presentation/pages/logined/user_page.dart';
 
-
-
 final GoRouter goRouter = GoRouter(
   redirect: (context, state) {
     //ログインしているか
     final isLoggedIn = FirebaseAuth.instance.currentUser != null;
 
-    final goingToLogin = (state.path == '/login' ||
-        state.path == '/register' ||
-        state.path == '/verify');
+    final goingToLogin = (state.fullPath == '/login' ||
+        state.fullPath == '/register' ||
+        state.fullPath == '/verify');
 
     if (!isLoggedIn && !goingToLogin) {
       return '/login'; // 未ログイン時はログイン画面にリダイレクト
@@ -79,6 +77,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/search',
       pageBuilder: (context, state) {
+        debugPrint('register page');
         return const NoTransitionPage(
           child: SearchPage(),
         );
