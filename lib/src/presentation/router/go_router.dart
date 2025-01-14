@@ -11,7 +11,10 @@ import 'package:tunalink/src/presentation/pages/logined/user_page.dart';
 final GoRouter goRouter = GoRouter(
   redirect: (context, state) {
     //ログインしているか
-    final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+    //? userがnullか、あるいはemail認証されていないならfalseになるようにする
+    final isLoggedIn = FirebaseAuth.instance.currentUser == null
+        ? false
+        : FirebaseAuth.instance.currentUser!.emailVerified;
 
     final goingToLogin = (state.fullPath == '/login' ||
         state.fullPath == '/register' ||
@@ -20,21 +23,6 @@ final GoRouter goRouter = GoRouter(
     if (!isLoggedIn && !goingToLogin) {
       return '/login'; // 未ログイン時はログイン画面にリダイレクト
     }
-
-    // if (isLoggedIn) {
-    //   //mainProviderの確認
-
-    //   final mainProvider = context.read<MainProvider>();
-    //   WidgetsBinding.instance.addPostFrameCallback((_) {
-    //     mainProvider.init();
-    //   });
-    //   //ログイン済み
-    //   //ログイン済みとわかったのでそのuidをstorageに保存
-    //   saveUIDToSecureStorage();
-    //   if (goingToLogin) {
-    //     return '/'; // ログイン済みなのにログインページﾅﾄﾞに行こうとしていたらホーム画面にリダイレクト
-    //   }
-    // }
 
     return null; // 他のルートは変更なし
   },

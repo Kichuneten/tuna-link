@@ -31,3 +31,32 @@ Future saveUserToDB(String username) async {
     debugPrint('Error<saveUserToDB>:$err');
   }
 }
+
+
+
+Future<String?> getMyInfo() async {
+  //トークンを取得しストレージに保存
+  String? idToken = await saveTokenToSecureStorage();
+  // debugPrint(idToken);
+
+  if (idToken == null) {
+    debugPrint("ID Token is null");
+    throw Exception('ID Token is null');
+  }
+
+  //userNameを保存（他のカラムはdefault値あり）
+  final url = Uri.https(httpBaseUrl, '/my');
+  try {
+    var result=await http.get(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        "Custom-authorization": 'Bearer $idToken', // トークンをヘッダーに追加
+      },
+    );
+    return result.body;
+  } catch (err) {
+    debugPrint('Error<getMyInfo>:$err');
+    return null;
+  }
+}

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,7 @@ Future<String> testget() async {
       throw Exception('ID Token is null');
     }
 
-    var url = Uri.https(httpBaseUrl, '/user');
+    var url = Uri.https(httpBaseUrl, '/post');
 
     // debugPrint("idToken: $idToken");
 
@@ -51,4 +52,32 @@ Future<Uint8List> testimage() async {
       throw Exception("failed to fetch the file");
     }
   } finally {}
+}
+
+
+
+Future testpost(String message) async {
+  //トークンを取得しストレージに保存
+  String? idToken = await saveTokenToSecureStorage();
+  // debugPrint(idToken);
+
+  if (idToken == null) {
+    debugPrint("ID Token is null");
+    throw Exception('ID Token is null');
+  }
+
+  //userNameを保存（他のカラムはdefault値あり）
+  final url = Uri.https(httpBaseUrl, '/post');
+  try {
+    await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        "Custom-authorization": 'Bearer $idToken', // トークンをヘッダーに追加
+      },
+      body: jsonEncode({'message': message}),
+    );
+  } catch (err) {
+    debugPrint('Error<saveUserToDB>:$err');
+  }
 }
